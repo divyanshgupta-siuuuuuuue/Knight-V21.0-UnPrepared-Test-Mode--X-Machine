@@ -1,0 +1,31 @@
+{
+  "name": "knight-desktop",
+  "version": "1.0.0",
+  "description": "Knight for Desktop: Hey Knight over your whole device",
+  "main": "main.js",
+  "author": "Divyansh Gupta",
+  "license": "UNLICENSED",
+  "scripts": {
+    "prepare-app": "node scripts/prepare.js",
+    "start": "npm run prepare-app && electron .",
+    "dist": "npm run prepare-app && electron-builder"
+  },
+  "dependencies": { "vosk-browser": "^0.0.8" },
+  "devDependencies": { "electron": "^33.2.0", "electron-builder": "^25.1.8" },
+  "build": {
+    "appId": "com.knight.desktop",
+    "productName": "Knight",
+    "files": ["main.js", "preload.js", "app/**/*"],
+    "directories": { "buildResources": "build", "output": "dist" },
+    "win": { "target": "nsis" },
+    "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true },
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.developer-tools",
+      "extendInfo": {
+        "NSMicrophoneUsageDescription": "Knight listens for “Hey Knight” so you can control your computer by voice."
+      }
+    },
+    "linux": { "target": ["AppImage", "deb"], "category": "Development" }
+  }
+}

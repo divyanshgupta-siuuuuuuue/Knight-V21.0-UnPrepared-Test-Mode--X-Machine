@@ -1,0 +1,23 @@
+# Cloudflare Pages / Workers assets read this file automatically.
+/*
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  Content-Security-Policy: upgrade-insecure-requests
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  # SAMEORIGIN (not DENY) so Knight can show its own Notes and Arcade pages inside itself.
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: geolocation=(self), microphone=(self), camera=(self), gamepad=(self), autoplay=(self)
+
+# Don't let browsers or the CDN cache the files you edit most.
+/index.html
+  Cache-Control: no-cache
+/notes.html
+  Cache-Control: no-cache
+/arcade.html
+  Cache-Control: no-cache
+/config.js
+  Cache-Control: no-cache
+/script.js
+  Cache-Control: no-cache
+/puter-guard.js
+  Cache-Control: no-cache

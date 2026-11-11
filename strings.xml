@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Knight</string>
+    <string name="a11y_desc">Lets Knight press Back and Home, scroll and tap for you when you ask by voice. Knight only acts on what you say.</string>
+</resources>

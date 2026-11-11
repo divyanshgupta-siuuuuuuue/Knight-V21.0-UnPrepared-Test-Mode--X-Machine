@@ -1,0 +1,40 @@
+# Render Blueprint for the Java backend. (The WebSocket server is optional:
+# if you use Ably for real-time chat you do not need to deploy websocket/.)
+services:
+  - type: web
+    name: knight-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      # Paste your Neon (or Supabase) Postgres connection string here, in the
+      # Render dashboard. WITHOUT this the free host wipes every account each
+      # time it sleeps.
+      - key: DATABASE_URL
+        sync: false
+      # Your real site origin(s), comma-separated, e.g. https://knight.workers.dev
+      # (*.pages.dev, *.onrender.com, *.vercel.app, *.netlify.app, *.github.io
+      # are already allowed by default).
+      - key: KNIGHT_ALLOWED_ORIGINS
+        sync: false
+      # Optional: turns on the AI assistant for everyone on your site. Paste your
+      # OpenRouter key in the Render dashboard (never in a file). Also set a credit
+      # limit on that key in OpenRouter. Without this, users can still paste their
+      # own key in Settings.
+      - key: OPENROUTER_API_KEY
+        sync: false
+      # Optional: where the terminal compiler runs non-JavaScript code. Defaults to the free
+      # public https://ce.judge0.com (rate limited). Point this at your own Judge0 for heavy use.
+      - key: JUDGE0_URL
+        sync: false
+      # Business access. Set these in the Render dashboard, never in a file you commit.
+      # KNIGHT_ADMIN_CODE opens the admin account. KNIGHT_DEMO_CODE (optional) opens the shared Prototype account.
+      - key: KNIGHT_ADMIN_CODE
+        sync: false
+      - key: KNIGHT_DEMO_CODE
+        sync: false
+      # Terminal lock. The terminal and the compiler stay locked until someone enters this PIN. Set it here, never in a file.
+      - key: KNIGHT_TERMINAL_PIN
+        sync: false

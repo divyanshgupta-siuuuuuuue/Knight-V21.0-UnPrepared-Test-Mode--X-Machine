@@ -1,0 +1,17 @@
+# Put this beside pom.xml as "Dockerfile". Source layout expected by Render (dockerContext ./backend):
+#   backend/pom.xml
+#   backend/src/main/java/com/knight/backend/KnightBackendApplication.java, KnightWebSocket.java, KnightRunner.java
+#   backend/src/main/resources/application.properties
+FROM maven:3.9-eclipse-temurin-21 AS build
+WORKDIR /app
+COPY pom.xml .
+RUN mvn -q -B dependency:go-offline
+COPY src ./src
+RUN mvn -q -B package -DskipTests
+
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+ENV JAVA_TOOL_OPTIONS="-Xmx400m"
+EXPOSE 8080
+CMD ["java", "-jar", "app.jar"]
